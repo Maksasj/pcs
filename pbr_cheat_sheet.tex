@@ -1,0 +1,100 @@
+\documentclass{article}
+
+\title{PBR cheat sheet}
+\author{Maksim Jaroslavcevas}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\section{Rendering equation}
+
+\subsection{General form}
+\[
+L_{o}(\textbf{x}, \omega_{o}, \lambda, t) = L_{e}(\textbf{x}, \omega_{o}, \lambda, t) + L_{r}(\textbf{x}, \omega_{o}, \lambda, t)
+\]
+where
+
+\begin{itemize}
+    \item $L_{o}$ is the total spectral radiance of wavelength $\lambda$ directed outward along direction $\omega_{o}$ at time t, from a particular position $x$
+    \item $\textbf{x}$ is the world position
+    \item $\omega_{o}$ is direction of the outgoing light
+    \item $\lambda$ is a light wavelength
+    \item $t$ is time
+    \item $L_{e}(\textbf{x}, \omega_{o}, \lambda, t)$ is emitted spectral radiance
+    \item $L_{r}(\textbf{x}, \omega_{o}, \lambda, t)$ is reflected spectral radiance
+\end{itemize}
+
+Since we will use this equation in computer graphics scope we can, eliminate irrelevant 
+variables, such as $\lambda$ and $t$. Result equation:
+
+\begin{equation}
+    L_{o}(\textbf{x}, \omega_{o}) = L_{e}(x, \omega_{o}) + L_{r}(\textbf{x}, \omega_{o})
+\end{equation}
+
+As a result we get very neat function. This functions gives a color of a point at position \textbf{x} 
+from view vector perspective, as we see final color is a sum of a emitted light and reflected light.
+
+\textit{First and second functions work with only single light channel, 
+but actually if we calculate each of RGB channel separately and compose 
+into a single three-dimensional vector, result will be the same as just 
+replacing evrething with three-dimensional vector. Next we will consider 
+light as a three-dimensional vector, where each dimension corresponds to
+red, green blue channels respectively.}
+
+Now lets look at reflection function
+
+\subsection{Reflection function}
+\[
+L_{r}(x, \omega_{o}, \lambda, t) = \int _{\Omega } f_r(x, \omega_{i}, \omega_{o}, \lambda, t) L_{i}(x, \omega_{i}, \lambda, t) (\omega_{i} * N) dw_{i}
+\]
+where
+\begin{itemize}
+    \item $\textbf{N}$ is a surface normal
+    \item $\omega_{i}$ light vector
+    \item $\cdots$ all other variables are repeated as in General form equation
+    \item $L_{i}(x, \omega_{i}, \lambda, t)$ incoming light 
+\end{itemize}
+
+Lets simplify this function, eliminating $\lambda, t$ variables
+
+\[
+L_{r}(x, \omega_{o}) = \int _{\Omega } f_r(x, \omega_{i}, \omega_{o}) L_{i}(x, \omega_{i}) (\omega_{i} * N) dw_{i}
+\]
+
+
+As wee see reflected light is just an $\int$ of all incoming light from an $\Omega$ 
+sphere. Since in computer graphics we usually have a finite number of lights, we can replace $\int$ with a $\Sigma$.
+
+\begin{equation}
+    L_{r}(x, \omega_{o}) = \sum_{n = 1}^{N} f_r(x, \omega_{n}, \omega_{o}) L_{i}(x, \omega_{n}) (\omega_{n} * N)
+\end{equation}
+
+Now we get reflection is a sum of products between incoming lights, $f_r$ functions and $(\omega_{n} * N)$. 
+At this point our final equation should look something like this
+
+\[
+L_{o}(\textbf{x}, \omega_{o}) = L_{e}(x, \omega_{o}) + \sum_{n = 1}^{G} f_r(x, \omega_{n}, \omega_{o}) L_{i}(x, \omega_{n}) (\omega_{n} * N)
+\]
+\begin{itemize}
+    \item $\textbf{G}$ total number of lights
+\end{itemize}
+
+Now we need to clarify $f_r$ function, but before lets replace some variables, 
+since we will use them quite a lot further, and not all names are quite intuitive.
+
+\begin{equation}
+    L_{o}(x, V) = L_{e}(x, V) + \sum_{n = 1}^{G} f_r(x, L_{n}, V) L_{i}(x, L_{n}) (L_{n} * N)
+\end{equation}
+
+where
+\begin{itemize}
+    \item $\textbf{x}$ is a world position of a point
+    \item $\textbf{V}$ view vector
+    \item $L_{n}$ - $n^{th}$ light vector
+    \item $N$ surface normal
+    \item $\textbf{G}$ total number of lights
+    \item $L_{i}$ - incoming light function
+\end{itemize}
+
+\end{document}

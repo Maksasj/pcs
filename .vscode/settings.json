@@ -1,0 +1,15 @@
+{
+    "editor.mouseWheelZoom": false,
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": ".tex",
+                "isAsync": true,
+                "cmd": "compile.bat"
+            }
+        ]
+    },
+    "terminal.integrated.env.osx": {
+        "PATH": "C:/Users/maksa/AppData/Local/Programs/MiKTeX/miktex/bin/x64"
+    }
+}
