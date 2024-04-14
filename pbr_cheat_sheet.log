@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=latex 2024.4.10)  10 APR 2024 14:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=latex 2024.4.10)  14 APR 2024 20:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -60,36 +60,32 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 12.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 12.
+ [1
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.23     \item L_
-                 {o}
-? 
-! Emergency stop.
-<inserted text> 
-                $
-l.23     \item L_
-                 {o}
-End of file on the terminal!
+] [2]
+Overfull \hbox (3.10283pt too wide) in paragraph at lines 104--104
+[]\OT1/cmr/bx/n/12 Bidirectional re-flectance dis-tri-bu-tion func-tion (BRDF) 
 
- 
+ []
+
+
+Overfull \hbox (9.11024pt too wide) in paragraph at lines 135--136
+[]$[]$ \OT1/cmr/m/n/10 specular-microfacet model 
+ []
+
+[3] [4] (pbr_cheat_sheet.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-04>
+ ***********
+ ) 
 Here is how much of TeX's memory you used:
- 459 strings out of 474487
- 8955 string characters out of 5743781
- 1925539 words of memory out of 5000000
- 22820 multiletter control sequences out of 15000+600000
- 562044 words of font info for 49 fonts, out of 8000000 for 9000
+ 473 strings out of 474487
+ 9332 string characters out of 5743781
+ 1935539 words of memory out of 5000000
+ 22829 multiletter control sequences out of 15000+600000
+ 563005 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,6n,50p,174b,197s stack positions out of 10000i,1000n,20000p,200000b,200000s
-No pages of output.
-henation exceptions out of 8191
  35i,6n,50p,203b,197s stack positions out of 10000i,1000n,20000p,200000b,200000s
-Output written on pbr_cheat_sheet.dvi (1 page, 2856 bytes).
- of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 35i,6n,50p,174b,197s stack positions out of 10000i,1000n,20000p,200000b,200000s
-No pages of output.
-00000b,200000s
-Output written on pbr_cheat_sheet.dvi (1 page, 2856 bytes).
+
+Output written on pbr_cheat_sheet.dvi (4 pages, 11032 bytes).

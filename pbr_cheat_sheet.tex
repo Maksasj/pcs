@@ -1,15 +1,14 @@
 \documentclass{article}
 
-\title{PBR cheat sheet}
+\title{Physical based rendering cheat sheet} 
 \author{Maksim Jaroslavcevas}
 \date{\today}
 
 \begin{document}
 
 \maketitle
-\section{Rendering equation}
 
-\subsection{General form}
+\section{Rendering equation}
 \[
 L_{o}(\textbf{x}, \omega_{o}, \lambda, t) = L_{e}(\textbf{x}, \omega_{o}, \lambda, t) + L_{r}(\textbf{x}, \omega_{o}, \lambda, t)
 \]
@@ -43,6 +42,9 @@ light as a three-dimensional vector, where each dimension corresponds to
 red, green blue channels respectively.}
 
 Now lets look at reflection function
+
+\subsection{Emission function}
+Todo
 
 \subsection{Reflection function}
 \[
@@ -96,5 +98,101 @@ where
     \item $\textbf{G}$ total number of lights
     \item $L_{i}$ - incoming light function
 \end{itemize}
+
+Note that all vectors are normalized.
+
+\subsection{Bidirectional reflectance distribution function (BRDF)}
+
+BRDF stands by bidirectional reflectance distribution function, this function
+defines how light from a source is reflected off an opaque surface. Usually BRDF
+takes an incoming light direction and outgoing direction, and returns the ration of
+reflected radiance exiting along to the irradiance incident of the surface from 
+view direction.
+
+Lets take a look at first Fred Nicodemus definition of the BRDF:
+
+\begin{equation}
+    f_r(\omega_{i}, \omega_{r}) = \frac{dL_r(\omega_{r})}{dE_i(\omega_{i})} = \frac{dL_r(\omega_{r})}{dL_i(\omega_{i})cos(\theta_{i})d\omega_{i}}
+\end{equation}
+
+where 
+\begin{itemize}
+    \item $\textbf{L}$ is radiance
+    \item $\textbf{E}$ is irradiance
+    \item $\theta_{i}$ is the angle between $\omega_{i}$ and the surface normal
+    \item $i$ index indicates incident light
+    \item $r$ index indicates reflected light
+\end{itemize}
+
+While the BRDF itself is a general concept that can model any type 
+of reflection, but it is not very suitable for our needs, 
+since in computer graphics we usually interested in
+diffuse and specular reflections. There are many other BRDF mased light
+models, such as
+
+\begin{itemize}
+    \item $\textbf{Lambertian model}$ used for diffuse reflection
+    \item $\textbf{Cook-Torrance model (Torrance–Sparrow)}$ specular-microfacet model
+    \item $\textbf{Phong}$ This model adds a specular component to the Lambertian model. Computationally inexpensive but less physically accurate
+    \item $\textbf{Oren–Nayar}$ similar to Lambertians model, more physically accurate, but more computationally expensive
+    \item ... and many others
+\end{itemize}
+
+Since different lighting models are used for different reflections,
+we can use combination of different models, for better result. For example most common use is a
+$\textbf{Lambertian model}$ for diffuse reflections and $\textbf{Cook-Torrance model}$ for specular reflections. 
+But we need to consider energy preservation, outgoing energy should not exceed incoming energy.
+
+But in what ratio we need to sum our diffuse and specular relfections? For this purpose
+we can use $\textbf{Fresnel}$ effect. In computer graphics we usually use 
+$\textbf{Schlick's approximation}$ for approximating the constribution of the $\textbf{Fresnel}$ effect in the
+specular reflection.
+
+Original $\textbf{Schlick's approximation}$ function
+
+\[
+    f_{Schlick}(\theta) = f_{0} + (1 - f_{0})(1 - \cos{\theta})^5
+\]
+
+where
+\begin{itemize}
+    \item $f_{0}$ is the reflection coefficient for light incoming parallel to the normal
+    \item $\theta$ is the angle between the direction from which the incident light is comming and the normal
+\end{itemize}
+
+Since in all our previous calculations we had no $\theta$ angle, lets replace it with vector dot product.
+
+\[
+    f_{Schlick} = f_{0} + (1 - f_{0})(1 - (V \cdot H))^5
+\]
+
+where
+\begin{itemize}
+    \item $V$ view vector
+    \item $H$ half-way vector
+\end{itemize}
+
+Note that $V$ and $H$ vectors are normalized, and $f_{0}$ is a constant specific for a specific material.
+
+Since $\textbf{Schlick's approximation}$ gives a ratio of specular reflection component lets denote it as
+
+\[
+    k_s = f_{Schlick}
+\]
+\[
+    k_d = 1 - k_s
+\]
+
+Note that $k_s + k_d = 1$ ($k_s$ - specular ration, $k_d$ - diffuse ratio).
+
+At this point our $BRDF$ (Combination of Lambertian model and Cook-Torrance model for diffuse and specular reflections respectively) function, 
+should look something like this
+
+\[
+    f_{brdf} = k_d f_{lambert} + k_s f_{cook-torrance}
+\]
+
+\section{References}
+Todo
 
 \end{document}
