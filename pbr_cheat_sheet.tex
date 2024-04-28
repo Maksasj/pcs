@@ -192,6 +192,49 @@ should look something like this
     f_{brdf} = k_d f_{lambert} + k_s f_{cook-torrance}
 \]
 
+\subsection{Lambertian model}
+
+\[
+    f_{lambert} = \frac{Color}{\pi}(L_{n} * N)
+\]
+
+From where does $\pi$ come from?
+
+Since Lambertian diffuse model describes perfect diffuse reflections
+(incoming light is equally reflected in all hemisphere directions).
+Therefore incoming light is equal to light reflected in all hemisphere directions.
+Note that there we have $\textbf{'all hemisphere directions'}$
+
+\[
+    L_i = \int _{\Omega } L_o
+\]
+
+where
+\begin{itemize}
+    \item $L_i$ incoming light
+    \item $L_o$ outcomming light
+    \item $\Omega$ our hemisphere
+\end{itemize}
+
+We will not go deeper into hemisphere integration, but note that
+there we also need to normalize our hemisphere integral. As a result we get $\frac{1}{/pi}$.
+
+Since lambertian model describes perfect diffuse relfections,
+therefore viewing angle and surface normal are not
+really important, therefore they can be simplified 
+
+\[
+    f_{lambert} = \frac{Color}{\pi}
+\]
+
+As a result our final lambertian diffuse equation have been simplified to a constant value.
+
+\subsection{Cook-Torrance model}
+Todo
+
+\section{Final result}
+Todo
+
 \section{References}
 Todo
 

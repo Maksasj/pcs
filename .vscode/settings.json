@@ -5,11 +5,8 @@
             {
                 "match": ".tex",
                 "isAsync": true,
-                "cmd": "compile.bat"
+                "cmd": "bash compile.sh"
             }
         ]
-    },
-    "terminal.integrated.env.osx": {
-        "PATH": "C:/Users/maksa/AppData/Local/Programs/MiKTeX/miktex/bin/x64"
     }
 }
